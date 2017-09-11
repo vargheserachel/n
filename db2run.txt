@@ -1,0 +1,23 @@
+//DSRP018R JOB NOTIFY=&SYSUID,REGION=2048K,PRTY=15                      00010027
+//********************************************************************* 00020001
+//*                  RUN PROGRAM                                        00030001
+//********************************************************************* 00040001
+//GO       EXEC PGM=IKJEFT01,DYNAMNBR=20                                00050002
+//STEPLIB  DD DSN=DSN810.SDSNLOAD,DISP=SHR                              00060001
+//         DD DSN=DSRP018.DB2.LOADLIB,DISP=SHR                          00070027
+//REPFILE  DD DSN=DSRP018.DB2.REPFILE,DISP=SHR                          00072030
+//SYSTSPRT DD   SYSOUT=*                                                00080001
+//SYSPRINT DD   SYSOUT=*                                                00090001
+//SYSOUT   DD   SYSOUT=*,OUTLIM=500                                     00101031
+//SYSIN    DD *                                                         00110028
+A                                                                       00120051
+10001                                                                   00124048
+0                                                                       00126053
+/*                                                                      00130014
+//SYSTSIN  DD   *                                                       00140001
+  PROFILE    PREFIX(DSRP018)                                            00150027
+  DSN SYSTEM(DSN8) RETRY(0) TEST(0)                                     00160001
+  RUN PROGRAM(PROG8) PLAN(P18AP08) -                                    00170051
+  LIB('DSRP018.DB2.LOADLIB')                                            00180027
+  END                                                                   00190001
+/*                                                                      00200001

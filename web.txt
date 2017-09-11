@@ -1,0 +1,37 @@
+1). keyboard shortcuts
+https://support.microsoft.com/en-us/help/12445/windows-keyboard-shortcuts
+
+2).steplib , joblib
+http://www.mainframegurukul.com/srcsinc/drona/programming/languages/jcl/jcl.chapter3.html
+
+3).dcb
+http://ibmmainframes.com/about42641.html
+
+4).cobol numbers
+http://www.simotime.com/nbrtyp01.htm
+
+5).db2 statemnets in cobol pgm
+http://www.mainframestechhelp.com/tutorials/db2/db2-statements-in-cobol-program.htm
+
+6).sample cobol-db2 pgm
+http://www.mainframegurukul.com/tutorials/database/db2_tutorials/cobol-db2-sample-program.html
+
+7).
+http://www.ongoinghelp.com/difference-between-dirty-read-non-repeatable-read-and-phantom-read-in-database/
+
+8). positional delete / update with dynamic cursor
+http://ibmmainframes.com/about60995.html
+
+9).mainframe cobol abend codes
+http://faculty.madisoncollege.edu/schmidt/mainframe/abendcodes.html
+
+10). system abend codes
+https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.1.0/com.ibm.zos.v2r1.csfb200/sysaco.htm
+
+11).abend codes
+http://www.workers.com.br/manuais/53/html/tcp53/mu/mu-2.htm
+
+12). CICS MAP
+https://www.tutorialspoint.com/cics/pdf/cics_map.pdf
+
+13).

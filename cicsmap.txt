@@ -1,0 +1,63 @@
+//DSRP018A JOB (IBM),'ASMCMAP',CLASS=A,
+//         TIME=1440,PRTY=15,MSGCLASS=X,NOTIFY=&SYSUID
+//ASMMAP  PROC INDEX='CICSTS23.CICS',  FOR SDFHMAC                      02000000
+//             A=,                           A=A FOR ALIGNED MAP        10000000
+//             ASMBLR=ASMA90,                ASSEMBLER PROGRAM NAME     10600000
+//             REG=2048K,                    REGION FOR ASSEMBLY        10900000
+//             OUTC='*',                     PRINT SYSOUT CLASS         16000000
+//             WORK=SYSDA                    WORK FILE UNIT             18000000
+//COPY     EXEC PGM=IEBGENER                                            20000000
+//* SYSPRINT FOR SYSTEM MESSAGES
+//SYSPRINT DD SYSOUT=&OUTC                                              22000000
+//*  SYSUT1 AND SYSUT2 ARE WORK DATASETS
+//SYSUT1   DD DSN=&SRCLIB(&MAPNAME),DISP=SHR                            32000000
+//SYSUT2   DD DSN=&&TEMPM,UNIT=&WORK,DISP=(,PASS),                      24000000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=400),                      26000000
+//            SPACE=(400,(50,50))                                       28000000
+//SYSIN    DD DUMMY                                                     30000000
+//ASMMA1   EXEC PGM=&ASMBLR,REGION=&REG,                                34000000
+//  PARM='SYSPARM(&A.MAP),DECK'                                         36000000
+//SYSPRINT DD SYSOUT=&OUTC                                              38000000
+//* SYSLIB - SYSTEM LIBRARY. SHOULD NOT BE CHANGED
+//SYSLIB   DD DSN=&INDEX..SDFHMAC,DISP=SHR                              40000000
+//         DD DSN=SYS1.MACLIB,DISP=SHR                                  42000000
+//SYSUT1   DD UNIT=&WORK,SPACE=(CYL,(5,5))                              44000000
+//SYSUT2   DD UNIT=&WORK,SPACE=(CYL,(5,5))                              46000000
+//SYSUT3   DD UNIT=&WORK,SPACE=(CYL,(5,5))                              48000000
+//*SYSPUNCH IS THE DD STATEMENT WHERE THE OBJECT MODULE OF THE MAP      42000000
+//*RESIDES                                                              42000000
+//SYSPUNCH DD DSN=&&MAP,DISP=(,PASS),UNIT=&WORK,                        50000000
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=400),                      52000000
+//            SPACE=(400,(50,50))                                       54000000
+//SYSIN    DD DSN=&&TEMPM,DISP=(OLD,PASS)                               56000000
+//*SYSLIN IS THE DD STATEMENT WHERE THE LOAD MODULE OF THE MAP          42000000
+//*RESIDES                                                              42000000
+//* 'SYSLIN' OUTPUT OF THE COMPILER GIVEN AS INPUT TO LINK EDITOR
+//SYSLIN   DD DSN=&&OBJ,SPACE=(3040,(40,40),,,ROUND),UNIT=SYSDA,
+//         DISP=(MOD,PASS),
+//         DCB=(BLKSIZE=3040,LRECL=80,RECFM=FBS,BUFNO=1)
+//*    LINK/EDIT PGM
+//LINKMAP  EXEC PGM=IEWL,PARM='LIST,LET,XREF'                           58000000
+//SYSPRINT DD SYSOUT=&OUTC                                              60000000
+//SYSLMOD  DD DSN=&MAPLIB(&MAPNAME),DISP=SHR                            62000000
+//SYSUT1   DD UNIT=&WORK,SPACE=(1024,(20,20))                           64000000
+//SYSLIN   DD DSN=&&MAP,DISP=(OLD,DELETE)                               67000000
+//ASMDSECT EXEC PGM=&ASMBLR,REGION=&REG,                                70000000
+//  PARM='SYSPARM(&A.DSECT),DECK'                                       73000000
+//SYSPRINT DD SYSOUT=&OUTC                                              76000000
+//SYSLIB   DD DSN=&INDEX..SDFHMAC,DISP=SHR                              79000000
+//         DD DSN=SYS1.MACLIB,DISP=SHR                                  82000000
+//SYSUT1   DD UNIT=&WORK,SPACE=(CYL,(5,5))                              85000000
+//SYSUT2   DD UNIT=&WORK,SPACE=(CYL,(5,5))                              88000000
+//SYSUT3   DD UNIT=&WORK,SPACE=(CYL,(5,5))                              91000000
+//*THE O/P OF TRANSLATION IS STORED IN SYSPUNCH
+//SYSPUNCH DD DSN=&DSCTLIB(&MAPNAME),DISP=SHR                           94000000
+//SYSIN    DD DSN=&&TEMPM,DISP=(OLD,DELETE)                             97000000
+//SYSLIN   DD DSN=&&OBJ,SPACE=(3040,(40,40),,,ROUND),UNIT=SYSDA,
+//         DISP=(MOD,PASS),
+//         DCB=(BLKSIZE=3040,LRECL=80,RECFM=FBS,BUFNO=1)
+//         PEND
+//MAPASSY  EXEC ASMMAP,MAPNAME=P18AS04,           MAPNAME
+//             MAPLIB='CICSTS23.USER4.LOAD',   TARGET FOR MAP           04000000
+//             SRCLIB='DSRP018.CICS.BMS',    SOURCE OF THE MAP          04000000
+//             DSCTLIB='DSRP018.CICS.COPYLIB'   TARGET FOR DSECT        06000000

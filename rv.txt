@@ -1,0 +1,350 @@
+
+1how to copy ps file in pdf
+2 what is  &paste
+
+
+PIN - 0049913165
+PASSWORD - mDraDLze
+
+
+______________________________________
+
+i).CECI SET PROG('P18AS01') NEWCOPY==> to refresh 
+  OR
+CECI SET PROG('P18AS01') NEW==> if ABM0 is displayed then type this command and then the first 
+  command.
+
+ii).CECI SEND MAP('CALMAP') MAPSET('P18AS01') ERASE
+(CECI-execute command interface)
+(CEDF-execute diagnostic facility)=debugs all CICS Comand
+
+
+
+**********************************
+
+
+
+
+tso=time sharing operations
+
+
+Note: The Settings Manager that you see above is not an image; it is the actual Settings Manager itself. Click the tabs to see different panels, and click the options in the panels to change your Adobe Flash Player settings.
+
+If you are a designer or developer creating applications for Flash Player, see Global security settings for content creators instead.
+
+Use the Global Security Settings panel to specify if SWF or FLV content that uses older security rules can access the Internet. (For information about why you may need to do this, see What are security settings?) To help you decide if it is safe to allow the older security rules to be used, ask yourself: Did I originally download this content myself from a website that I trust? Is the SWF or FLV content trying to communicate with a website that I trust? The website with which the SWF or FLV content wants to communicate is listed in the pop-up dialog that appears when the SWF or FLV content first tries to communicate with the website.
+
+Your options are as follows:
+
+You can set Flash Player to always ask your permission before letting SWF or FLV content use older security rules; always allow SWF or FLV content to use older security rules; or always deny SWF or FLV content the right to use older security rules. These options, at the top of the panel, apply to both SWF or FLV content that you use on the Web and that is stored locally on your computer. Read more about Online and local content that uses the older security rules, below.
+(Flash Player 8 and later) For a finer level of control, you can let specific SWF or FLV content on your computer use older security rules to access any Internet site it wants. This option, at the bottom of the panel, applies only to SWF or FLV content that is stored locally on your computer, not accessed from a website. Read about SWF or FLV content stored on your computer (Flash Player 8 and later).
+If you do not allow SWF or FLV content to use the older security rules, the content might or might not function as intended. If you change your mind about these settings, you can always return to the Global Security Settings panel and change the settings.
+
+For an overview of issues relating to global security settings, see What are security settings? in the discussion of the Settings Manager.
+
+Online and local content that uses the older security rules
+Some SWF or FLV content on websites or on your local computer uses older security rules to access information from other sites or communicate with the Internet. For example, you might be shopping at shoes.companyA.com. You want to add a pair of sandals to your shopping cart, and the sandals' price is on another site, at sandals.companyA.com. In this example, the first site tries to access the second, using the older security rules. Or, SWF or FLV content stored locally on your computer might try to communicate with the Internet. When the content uses older security rules and tries to perform these operations, Flash Player asks your permission. You can set the permission so that it affects all SWF or FLV content using the older system of security:
+
+If you want Flash Player to always ask your permission before using the older security rules, select Always Ask My Permission. Selecting this option allows you to decide, on a case-by-case basis, if the SWF or FLV content can be trusted or not. (A trusted website is a well-known site that you recognize and trust.) When SWF or FLV content tries to use the older security rules, you will see the security pop-up question. At that point, you can allow the SWF or FLV content to use the older security rules or deny it the right to use the older security rules.
+If you want to always allow SWF or FLV content use the older security rules, select Always Allow Access. Selecting this option means you are telling Flash Player that you trust all SWF or FLV content and don't want to be asked about this again. You will not see the security pop-up question again. 
+
+This option is convenient but might also allow sharing of information, such as personal information that you have provided to one site, between sites.
+If you don't want to allow SWF or FLV content to use the older security rules, select Always Deny Access. Selecting this option means you do not trust any SWF or FLV content that uses the older system of security. You won't see the security pop-up question again. 
+
+Because SWF or FLV content will not be allowed to use the older system of security to access information from other sites, such SWF or FLV content might not function as intended.
+SWF or FLV content stored on your computer (Flash Player 8 and later)
+Some SWF or FLV content that you download to your computer might try to use older security rules to communicate with the Internet. For example, you might enter data in an expense tracking application running in Flash Player that you use offline, then that information is sent to a company website for processing. In another example, a help system running in Flash Player installed on your computer may contact the Internet for updated content.
+
+You can specify what SWF or FLV content on your computer may always use the older security rules by adding the location of the content to the Security panel. After you add a location on your computer to the Security panel, content in that location is trusted. Flash Player won't ask you for permission and will be always allowed to use the older security rules, even if Always Deny is selected in the Security panel. The Always Trust Files in These Locations list overrides the options in the Settings panel. That is, if you select to always deny local and web content the right to use the older security rules, the local files in your trusted list are always allowed to use the older rules.
+
+The Always trust files list at the bottom of the panel applies specifically to SWF or FLV content that you have downloaded to your computer, not content that you use while visiting a website.
+
+(Flash Player 8 and later) To specify that SWF or FLV content on your computer may use the older security rules to communicate with the Internet:
+In the Settings Manager Global Security Settings panel, above, click the pop-up menu and select Add Location. 
+
+The Add Location box opens. If you arrived at the Settings Manager by clicking the Settings button in a dialog box, the Add Location box contains a path that looks something like C:\directoryname\filename.swf or /Users/directoryname/filename.swf; this path tells you which file tried to communicate with the Internet and was stopped by Flash Player security. If the path contains the content that you want to let communicate with the Internet, copy and paste the path into the Trust this location box. Or, click one of the Browse buttons and find the content yourself. 
+
+You can add an individual file or an entire directory. If you add an entire directory, all the files and subdirectories in that directory are trusted. Some SWF or FLV content consists of multiple related files, and you might need to trust the entire directory where all the related files are located. In general, avoid trusting top-level directories.
+Click Confirm. 
+
+The location is added to the Security Settings panel. Locations listed are always allowed to use the older security rules, even if the Always Deny or Always Ask options at the top of the Security panel are selected. 
+
+After you add trusted locations, you must restart the local SWF or FLV content by either refreshing the browser or restarting the player.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+****
+Monday's child is fair of face, 
+Tuesday's child is full of grace,
+Wednesday's child is full of woe,
+Thursday's child has far to go,
+Friday's child is loving and giving,
+Saturday's child works hard for its living,
+And a child that
+'s born on the Sabbath day
+Is fair and wise and good and gay.
+
+===================================================================================
+===================================================================================
+WORKING-STORAGE SECTION.
+01  WS-CA      PIC X(01) VALUE SPACES.
+    88  PROCESS-KEY         VALUE '1'.
+    88  PROCESS-ADD         VALUE '2'.
+    88  PROCESS-UPD-DEL         VALUE '3'.
+    88  PROCESS-DET         VALUE '2', '3'.
+LINKAGE SECTION.
+01  DFHCOMMAREA       PIC X(01).
+PROCEDURE DIVISION.
+MAIN-PARA.
+    IF EIBCALEN = ZERO
+    PERFORM FIRST-PARA
+    ELSE
+    MOVE DFHCOMMAREA TO WS-CA
+    PERFORM NEXT-PARA THRU NEXT-PARA-X
+    END-IF.
+END-PARA.
+    RETURN TRANSID('PnnD') COMMAREA(WS-CA)
+*(conditional return to CICS when TRANSID,will stop)
+*only AID key vl restart prgm and the contents in TRANSID to execute and WS-CA vl b passed to 
+ DFHCOMMAREA
+
+
+FIRST-PARA
+    Initialize the Symbolic Map
+    PERFORM SEND-FIRST-MAP.
+SEND-FIRST-MAP
+    Get the Date & Time   **(ie. PERFORM DATE-TIME-PARA).
+    Send the Key Map
+    SET PROCESS-KEY TO TRUE   (Move '1' to WS-CA)**To knw wat map to send
+NEXT-PARA.
+    Evaluate DFHAID
+    When Enter
+       Evaluate TRUE
+          When PROCESS-KEY
+             Process Enter
+          When PROCESS-DET
+       Move 'Invalid Key Pressed' to MSG2O
+       End Evaluate
+    When PF2
+       Process Add
+    When PF3
+       Process PF3
+    When PF4
+       Process Update
+    When PF5
+       Process Delete
+    End Evaluate
+SEND-PARA.
+    Evaluate TRUE
+    When PROCESS-KEY
+       Send Key Map
+    When PROCESS-DET
+       Send Detail Map
+    End Evaluate
+NEXT-PARA-X.
+    EXIT.
+Process Enter
+    Receive Key Map
+    Validate Emp Id
+    If Emp ID Entered
+    Read Employee Para
+    Else
+    Move 'Please enter EMP id' to MSG1O
+    End if 
+Process PF3
+    Evaluate TRUE
+    When PROCESS-KEY
+       XCTL to Menu Program
+    When PROCESS-DET
+       SET PROCESS-KEY TO TRUE       (Move '1' to WS-CA)
+    End Evaluate
+===========================================================
+**PSEUDO CODE FOR EMP-MAINTAINANCE PROGRAM:**
+
+WORKING-STORAGE SECTION.
+01  WS-CA.
+    03  WS-PROCESS-FLAG   PIC X(01) VALUE SPACES.
+    88  PROCESS-KEY         VALUE '1'.
+    88  PROCESS-ADD         VALUE '2'.
+    88  PROCESS-UPD-DEL     VALUE '3'.
+    88  PROCESS-DET         VALUE '2', '3'.
+    03  WS-EMP-ID PIC X(05) VALUE SPACES.
+    COPY PnnAS04.
+    COPY DFHAID.
+    COPY DFHBMSCA.
+01  MASTER-RECORD.
+LINKAGE SECTION.
+01  DFHCOMMAREA       PIC X(06).
+PROCEDURE DIVISION.
+MAIN-PARA.
+    IF EIBCALEN = ZERO
+    PERFORM FIRST-PARA
+    ELSE
+    MOVE DFHCOMMAREA TO WS-CA
+    PERFORM NEXT-PARA THRU NEXT-PARA-X
+    END-IF.
+END-PARA.
+    RETURN TRANSID('PnnD') COMMAREA(WS-CA)
+FIRST-PARA
+    Initialize the Symbolic Map
+    PERFORM SEND-FIRST-MAP.
+SEND-FIRST-MAP
+    Get the Date & Time
+    Send the Key Map
+    SET PROCESS-KEY TO TRUE   (Move '1' to WS-PROCESS-FLAG)
+NEXT-PARA.
+    EVALUATE TRUE
+    WHEN PROCESS-KEY
+       Perform Key Para
+    WHEN PROCESS-DET
+       Perform Detail Para
+SEND-PARA.
+    Evaluate TRUE
+    When PROCESS-KEY
+       Send Key Map
+    When PROCESS-DET
+       Send Detail Map
+NEXT-PARA-X.
+    EXIT.
+Key Para
+    Evaluate EIBAID
+    When Enter
+       Perform Process Key map
+    When PF3
+       XCTL to Menu Program
+    When Other
+       Move 'Invalid Key Pressed' to MSG1O
+Process Key Map
+    Receive Key Map
+    IF EMPID1 is not entered
+    Move 'Enter an Emp ID' to MSG1O
+    Else
+    Perform Read Employee
+Read Employee.
+    MOVE EMPID1I TO WS-EMP-ID
+    READ FIILE('PnnAFILE') RIDFLD(WS-EMP-ID) INTO(MASTER-RECORD)
+    If NORMAL
+    Move Employee Details to Symbolic Map Variables
+    SET PROCESS-UPD-DEL TO TRUE   (Move '3' to WS-PROCESS-FLAG)
+    Move 'Update / Delete' to MODEO
+    Move DFHBMDAR to LABEL1A
+    Move DFHBMPRO to LABEL2A
+    If NOTFND
+    Move Spaces to Symbolic Map Variables
+    SET PROCESS-ADD TO TRUE       (Move '2' to WS-PROCESS-FLAG)
+    Move 'Add Employee' to MODEO
+    Move DFHBMPRO to LABEL1A
+    Move DFHBMDAR to LABEL2A
+Send Detail Map
+    Get the Date & Time
+    Send the Detail Map
+Detail Para
+    Evaluate EIBAID
+    When PF2
+       if PROCESS-ADD     (WS-PROCESS-FLAG = '2')
+          Perform Add Para
+       ELSE
+          Move 'PF2 not enabled' to MSG2O
+    When PF3
+       SET PROCESS-KEY TO TRUE    (Move '1' to WS-PROCESS-FLAG)
+    When PF4
+       if PROCESS-UPD-DEL     (WS-PROCESS-FLAG = '3')
+          Perform Update Para
+       ELSE
+          Move 'PF4 not enabled' to MSG2O
+    When PF5
+       if PROCESS-UPD-DEL     (WS-PROCESS-FLAG = '3')
+          Perform Delete Para
+       ELSE
+          Move 'PF5 not enabled' to MSG2O
+    When Other
+       Move 'Invalid Key Pressed' to MSG2O
+Delete Para
+    DELETE FILE('PnnAFILE') RIDFLD(WS-EMP-ID)
+    If Normal
+    Move 'Delete Successful' to MSG1O
+    Else
+    UNLOCK FILE('PnnAFILE')
+    Move 'Delete not Successful' to MSG1O
+    end if
+    SET PROCESS-KEY TO TRUE      (Move '1' to WS-PROCESS-FLAG)
+    MOVE WS-EMP-ID TO EMPID1O
+Add Para
+    Receive Detail Map
+    Validate the Fields
+    If Valid Data
+    Move Fields from Symbolic Map to Master Record
+    Perform Write Para
+Write Para
+    WRITE FILE('PnnAFILE') RIDFLD(WS-EMP-ID) FROM (MASTER-RECORD)
+    If Normal
+    Move 'Add Successful' to MSG1O
+    Else
+    Move 'Add not Successful' to MSG1O
+    end if
+    SET PROCESS-KEY TO TRUE      (Move '1' to WS-PROCESS-FLAG)
+    MOVE WS-EMP-ID TO EMPID1O
+Update Para
+    Receive Detail Map
+    Validate the Fields
+    If Valid Data
+    Move Fields from Symbolic Map to Master Record
+    Perform ReWrite Para
+ReWrite Para
+    READ FILE('PnnAFILE') RIDFLD(WS-EMP-ID) INTO(MASTER-RECORD) UPDATE
+    If Normal
+    WRITE FILE('PnnAFILE') RIDFLD(WS-EMP-ID) FROM (MASTER-RECORD)
+    If Normal
+       Move 'Update Successful' to MSG1O
+    Else
+       Move 'Update not Successful' to MSG1O
+        end if
+    SET PROCESS-KEY TO TRUE      (Move '1' to WS-PROCESS-FLAG)
+    MOVE WS-EMP-ID TO EMPID1O
+Validate Para
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

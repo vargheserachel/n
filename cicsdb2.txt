@@ -1,0 +1,159 @@
+/*****jcl for cics + db2**********/
+
+//DSRP023A JOB CLASS=A,MSGCLASS=X,MSGLEVEL=(1,1),
+//          NOTIFY=&SYSUID,PRTY=15,TIME=(0,5),
+//          REGION=0M
+//SET1 SET SOURCE='DSRP023.PROJECT1.SOURCE',
+//         PROG='P23AP06',
+//         MEMBER='P23AP06',
+//         DCLLIB='DSRP023.PROJECT1.DCLGEN',
+//         COPYLIB='DSRP023.PROJECT1.COPYLIB',
+//         DBRMLIB='DSRP023.PROJECT1.DBRMLIB'
+//KOPY   EXEC  PGM=IEBGENER
+//SYSUT1 DD    DISP=SHR,DSN=DSRP023.PROJECT1.SOURCE(&PROG)
+//SYSUT2 DD    DSN=DSRP023.PROJECT1.SOURCE(&MEMBER),
+//             DISP=(SHR,KEEP,KEEP)
+//CLAIM  DD    DSN=DSRP023.PROJECT1.CLAIM,DISP=OLD
+//HISTORY DD   DSN=DSRP023.PROJECT1.HISTORY,DISP=OLD
+//SYSPRINT     DD SYSOUT=*,OUTLIM=500
+//SYSIN        DD DUMMY
+//*
+//*----------------------------------------------------------------*    00000900
+//*    JCL TO PREPARE CICS - DB2 - COBOL PROGRAMS WITH BIND        *    00000900
+//*    (CICSTS23.CICS)                                             *
+//*                                                                *    00000900
+//*                                                                *    00000900
+//*    THIS PROCEDURE CONTAINS 6 STEPS                             *    00001000
+//*    1.   EXEC THE PRECOMPILER                                   *    00001100
+//*    2.   EXEC THE COBOL TRANSLATOR                              *    00001100
+//*    3.   EXEC THE COBOL/370 COMPILER                            *    00001300
+//*    4.   REBLOCK SDFHMAC(DFHLI000) FOR USE BY THE LINKEDIT STEP *    00001400
+//*    5.   LINKEDIT                                               *    00001500
+//*    6.   BIND                                                   *    00001500
+//*----------------------------------------------------------------*    00000900
+//DFHEBTVL PROC                                                         00000100
+//*********************************************************************
+//* DSNHPC IS A PROGRAM FOR PRECOMPILING THE APPLICATION PROGRAM
+//*********************************************************************
+//PC     EXEC PGM=DSNHPC,PARM='HOST(IBMCOB),SOURCE,APOST,LEVEL(A123)',
+//            REGION=4096K
+//*  STEPLIB IS A DD STATEMENT THAT TELLS THE NAME OF THE PDS
+//*  LIBRARY CONTAINING THE PROGRAM YOU WANT TO EXECUTE
+//STEPLIB  DD  DSN=DSN810.SDSNLOAD,DISP=SHR                             00003700
+//SYSPRINT DD  SYSOUT=*                                                 00003900
+//SYSTERM  DD  SYSOUT=*                                                 00003900
+//**********************************************************************
+//*               SOURCE(PROGRAM NAME)
+//**********************************************************************
+//SYSIN    DD DSN=&SOURCE(&MEMBER),DISP=SHR
+//*
+//**********************************************************************
+//* SYSTEM LIBRARY,NO CHANGES SHOULD BE MADE.
+//**********************************************************************
+//SYSLIB   DD DSN=&COPYLIB,DISP=SHR
+//         DD DSN=&DCLLIB,DISP=SHR
+//*SYSCIN IS THE DD STATEMENT FOR GETTING THE COMPLITATION OUTPUT
+//*FOR APPLICATION PROGRAM
+//SYSCIN   DD DSN=&&SYSTIN,
+//             DISP=(,PASS),UNIT=SYSDA,                                 00004100
+//             DCB=BLKSIZE=400,                                         00004200
+//             SPACE=(400,(400,100))                                    00004300
+//*DBRMLIB IS THE DD STATEMENT FOR GETTING THE DATA BASE REQUEST MODULE
+//DBRMLIB  DD DSN=&DBRMLIB(&MEMBER),DISP=SHR
+//SYSUT1   DD SPACE=(800,(500,500),,,ROUND),UNIT=SYSDA
+//SYSUT2   DD SPACE=(800,(500,500),,,ROUND),UNIT=SYSDA
+//*DFHECP1$ IS THE PROGRAM USED FOR TRANSLATION OF THE APPL. PGM
+//TRN    EXEC PGM=DFHECP1$,COND=(7,LT,PC),                              00003400
+//       PARM='SP',                                                     00003500
+//       REGION=2048K                                                   00003600
+//STEPLIB  DD  DSN=CICSTS23.CICS.SDFHLOAD,DISP=SHR                      00003700
+//* SYSPRINT FOR SYSTEM MESSAGES
+//SYSPRINT DD  SYSOUT=*                                                 00003900
+//*THE O/P OF TRANSLATION IS STORED IN SYSPUNCH
+//SYSPUNCH DD  DSN=&&SYSCIN,                                            00004000
+//             DISP=(,PASS),UNIT=SYSDA,                                 00004100
+//             DCB=BLKSIZE=400,                                         00004200
+//             SPACE=(400,(400,100))                                    00004300
+//SYSIN    DD DSN=&&SYSTIN,DISP=(OLD,DELETE)
+//COB    EXEC PGM=IGYCRCTL,REGION=2048K,COND=((7,LT,TRN),(7,LT,PC)),    00004400
+//       PARM='NODYNAM,LIB,OBJECT,RENT,APOST,MAP,XREF'                  00004500
+//STEPLIB  DD  DSN=IGY.SIGYCOMP,DISP=SHR                                00004600
+//* SYSTEM LIBRARY,NO CHANGES SHOULD BE MADE.
+//SYSLIB   DD  DSN=CICSTS23.CICS.SDFHCOB,DISP=SHR                       00004700
+//         DD  DSN=CICSTS23.CICS.SDFHMAC,DISP=SHR                       00004710
+//*                USERID.PROJECT1.DSECT(MEMBER NAME)                   00004710
+//         DD  DSN=&COPYLIB,DISP=SHR                                    00004710
+//SYSPRINT DD  SYSOUT=*                                                 00004800
+//SYSIN    DD  DSN=&&SYSCIN,DISP=(OLD,DELETE)                           00004900
+//* 'SYSLIN' OUTPUT OF THE COMPILER GIVEN AS INPUT TO LINK EDITOR
+//*SYSLIN IS THE DD STMT WHERE THE OBJ MODULE RESIDES
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(MOD,PASS),                           00005000
+//             UNIT=SYSDA,SPACE=(400,(250,100))                         00005100
+//*  SYSUT1 TO SYSUT7 ARE WORK DATASETS
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(460,(350,100))                         00005200
+//SYSUT2   DD  UNIT=SYSDA,SPACE=(460,(350,100))                         00005300
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(460,(350,100))                         00005400
+//SYSUT4   DD  UNIT=SYSDA,SPACE=(460,(350,100))                         00005500
+//SYSUT5   DD  UNIT=SYSDA,SPACE=(460,(350,100))                         00005600
+//SYSUT6   DD  UNIT=SYSDA,SPACE=(460,(350,100))                         05000000
+//SYSUT7   DD  UNIT=SYSDA,SPACE=(460,(350,100))                         09000000
+//COPYLINK EXEC PGM=IEBGENER,COND=((7,LT,COB),(7,LT,TRN),(7,LT,PC))     13000000
+//SYSUT1   DD  DSN=CICSTS23.CICS.SDFHMAC(DFHEILIA),DISP=SHR             17000000
+//SYSUT2   DD  DSN=&&COPYLINK,DISP=(NEW,PASS),                          21000000
+//             DCB=(LRECL=80,BLKSIZE=400,RECFM=FB),                     25000000
+//             UNIT=SYSDA,SPACE=(400,(20,20))                           29000000
+//SYSPRINT DD  SYSOUT=*                                                 33000000
+//SYSIN    DD  DUMMY                                                    37000000
+//*           LINK/EDIT
+//LKED   EXEC PGM=IEWL,REGION=2048K,                                    41000000
+//  PARM='XREF',
+//  COND=((5,LT,COB),(7,LT,TRN),(7,LT,PC),(0,NE,COPYLINK))
+//SYSLIB   DD  DSN=CICSTS23.CICS.SDFHLOAD,DISP=SHR                      49000000
+//         DD  DSN=CEE.SCEECICS,DISP=SHR                                53000000
+//         DD  DSN=CEE.SCEELKED,DISP=SHR                                57000000
+//         DD  DSN=DSN810.SDSNLOAD,DISP=SHR                             57000000
+//* CHANGE THE LOAD MODULE NAME
+//*SYSLMOD IS THE DD STMT WHERE THE LOAD MODULE RESIDES
+//* HERE YOU SHOULD NOT CHANGE THE PDS. PUT YOUR PROGRAM MEMBER
+//SYSLMOD  DD  DSN=CICSTS23.USER4.LOAD(&MEMBER),DISP=SHR
+//SYSUT1   DD  UNIT=SYSDA,DCB=BLKSIZE=1024,                             70000000
+//             SPACE=(1024,(200,20))                                    75000000
+//SYSPRINT DD  SYSOUT=*                                                 80000000
+//SYSLIN   DD  DSN=&&LOADSET,DISP=(OLD,DELETE)                          85000000
+//         DD  DSN=&&COPYLINK,DISP=(OLD,DELETE)                         90000000
+//         DD  DDNAME=SYSIN                                             95000000
+//*********************************************************************
+//*      IKJEFT01 IS THE PROGRAM FOR BINDING
+//*********************************************************************
+//BIND    EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(5,LT,PC)                  00060000
+//STEPLIB  DD  DSN=DSN810.SDSNLOAD,DISP=SHR                             00090000
+//SYSTSPRT DD  SYSOUT=*                                                 00070000
+//SYSPRINT DD  SYSOUT=*                                                 00080000
+//SYSUDUMP DD  SYSOUT=*                                                 00090000
+//         PEND
+//*********************************************************************
+//*      CALLING THE INSTREAM PROC DFHEBTVL
+//*********************************************************************
+//COMPILE  EXEC DFHEBTVL
+//LKED.SYSIN DD *
+     INCLUDE SYSLIB(DSNCLI)
+/*
+//*********************IN NEXT DD STATEMENT**********************
+//*            'PLAN' IS  YOUR PLANNAME,
+//*            'MEM' IS THE DBRM MEMBER NAME
+//*            'LIB' IS THE DBRM LIBRARY
+//**************************************************************
+//BIND.SYSTSIN  DD  *                                                   00100000
+          DSN SYSTEM(DSN8)
+          BIND PLAN(P23AP06) -
+          MEM(P23AP06)       -
+          ACT(REP)           -
+          ISOLATION(CS) -
+          LIB('DSRP023.PROJECT1.DBRMLIB') -                             00112000
+          RETAIN  -
+          VALIDATE(BIND) -
+          ACQUIRE(USE) -
+          RELEASE(COMMIT) -
+          EXPLAIN(NO)
+          END                                                           00153000
+//                                                                      00003100

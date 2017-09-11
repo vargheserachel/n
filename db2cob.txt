@@ -1,0 +1,97 @@
+//DSRP018C JOB NOTIFY=&SYSUID,REGION=2048K,PRTY=15,TIME=(0,5)           00010020
+//*SET1 SET SOURCE='DSRC212.CLIENT.COBDB2',                             00020000
+//SET1 SET SOURCE='DSRP018.DB2.SOURCE',                                 00030002
+//         MEMBER='PROG8',                                              00040039
+//*        DCLLIB='DSRP212.CLIENT.COBDB2',                              00050002
+//*        DBRMLIB='DSRP212.DB2.DBRMLIB',                               00060002
+//*        GOFILE='DSRP212.DB2.LOAD' (CICSTS23.USER1.LOAD)              00070002
+//         DCLLIB='DSRP018.DB2.DCLGEN',                                 00080002
+//         DBRMLIB='DSRP018.DB2.DBRMLIB',                               00090025
+//         GOFILE='DSRP018.DB2.LOADLIB' (CICSTS23.USER1.LOAD)           00100002
+//********************************************************************* 00110000
+//*                     PRECOMPILING-1                                  00120000
+//* DSNHPC IS A PROGRAM FOR PRECOMPILING THE APPLICATION PROGRAM        00130000
+//********************************************************************* 00140000
+//PRECOMP  EXEC PGM=DSNHPC,                                             00150000
+//     PARM=('HOST(IBMCOB),SOURCE,APOST,LEVEL(A123)')                   00160000
+//*  STEPLIB IS A DD STATEMENT THAT TELLS THE NAME OF THE PDS           00170000
+//*  LIBRARY CONTAINING THE PROGRAM YOU WANT TO EXECUTE                 00180000
+//STEPLIB  DD  DISP=SHR,DSN=DSN810.SDSNLOAD                             00190000
+//*SYSIN IS THE DD STATEMENT FOR GETTING THE APPLICATION PROGRAM AS     00200000
+//*INPUT                                                                00210000
+//SYSIN    DD  DISP=SHR,DSN=&SOURCE(&MEMBER)                            00220000
+//SYSLIB   DD  DISP=SHR,DSN=&DCLLIB                                     00230000
+//*         DD  DISP=SHR,DSN=&SOURCE                                    00240000
+//*SYSCIN IS THE DD STATEMENT FOR GETTING THE COMPILATION OUTPUT        00250000
+//*FOR APPLICATION PROGRAM                                              00260000
+//SYSCIN   DD  DSN=&&OUT1,UNIT=SYSDA,DISP=(NEW,PASS),                   00270000
+//             SPACE=(TRK,(1,1)),DCB=(LRECL=80,BLKSIZE=3200)            00280000
+//*DBRMLIB IS THE DD STATEMENT FOR GETTING THE DATA BASE REQUEST MODULE 00290000
+//* OUTPUT OF THE PRECOMPILER                                           00300000
+//DBRMLIB  DD  DISP=SHR,DSN=&DBRMLIB(&MEMBER)                           00310000
+//*         DD  DISP=SHR,DSN=&DBRMLIB(&MEMBER1)                         00320000
+//SYSTERM  DD  SYSOUT=*                                                 00330000
+//* SYSPRINT FOR SYSTEM MESSAGES                                        00340000
+//SYSPRINT DD  SYSOUT=*                                                 00350000
+//*  SYSUT1 TO SYSUT2 ARE WORK DATASETS                                 00360000
+//SYSUT1   DD  SPACE=(800,(500,500)),UNIT=SYSDA                         00370000
+//SYSUT2   DD  SPACE=(800,(500,500)),UNIT=SYSDA                         00380000
+//********************************************************************* 00390000
+//*                  COMPILING-1                                        00400000
+//********************************************************************* 00410000
+//COMPILE  EXEC PGM=IGYCRCTL,COND=(5,LT),PARM='LIB,TEST,APOST'          00420000
+//* SYSTEM LIBRARY,NO CHANGES SHOULD BE MADE.                           00430000
+//SYSLIB   DD  DISP=SHR,DSN=&SOURCE &COPYLIB                            00440000
+//         DD  DISP=SHR,DSN=&DCLLIB                                     00450000
+//SYSIN    DD  DISP=(OLD,DELETE),DSN=&&OUT1                             00460000
+//SYSPRINT DD  SYSOUT=*                                                 00470000
+//*  SYSUT1 TO SYSUT7 ARE WORK DATASETS                                 00480000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))                             00490000
+//SYSUT2   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))                             00500000
+//SYSUT3   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))                             00510000
+//SYSUT4   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))                             00520000
+//SYSUT5   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))                             00530000
+//SYSUT6   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))                             00540000
+//SYSUT7   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))                             00550000
+//* 'SYSLIN' OUTPUT OF THE COMPILER GIVEN AS INPUT TO LINK EDITOR       00560000
+//SYSLIN   DD  DSN=&&LOADSET1,UNIT=SYSDA,DISP=(MOD,PASS),               00570000
+//             SPACE=(TRK,(3,3)),DCB=BLKSIZE=800                        00580000
+//********************************************************************* 00590000
+//*                   LINK EDIT                                         00600000
+//********************************************************************* 00610000
+//LINK    EXEC PGM=IEWL,PARM='LIST,MAP',COND=(5,LT)                     00620000
+//SYSLIN   DD  DSN=&&LOADSET1,DISP=(OLD,DELETE)                         00630000
+//* SYSLMOD IS THE OUTPUT LOAD MODULE                                   00640000
+//SYSLMOD  DD  DSN=&GOFILE(&MEMBER),DISP=SHR                            00650000
+//SYSUT1   DD  UNIT=SYSDA,SPACE=(CYL,(1,1))                             00660000
+//SYSPRINT DD  SYSOUT=*                                                 00670000
+//SYSIN    DD  DUMMY                                                    00680000
+//SYSLIB   DD  DSN=CEE.SCEELKED,DISP=SHR                                00690000
+//         DD  DSN=DSN810.SDSNLOAD,DISP=SHR                             00700000
+//*DSRP018B JOB NOTIFY=&SYSUID,REGION=2048K,PRTY=15                     00710026
+//********************************************************************* 00720023
+//*      IKJEFT01 IS THE PROGRAM FOR BINDING                            00730023
+//********************************************************************* 00740023
+//BIND    EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(5,LT)                     00750023
+//STEPLIB  DD  DISP=SHR,DSN=DSN810.SDSNLOAD                             00760023
+//*DBRMLIB IS THE DD STATEMENT TELLS WHERE THE DBRM STORES              00770023
+//DBRMLIB  DD  DISP=SHR,DSN=DSRP018.DB2.DBRMLIB                         00780023
+//*SYSTSIN IS THE DD STATEMENT IN WHICH WE HAVE TO GIVE BIND PARAMETERS 00790023
+//*IT WILL GIVE THE COMPLETE INFORMATION THAT HOW UR DATA BASE IS TO BE 00800023
+//*ACCESSED                                                             00810023
+//SYSTSIN  DD   *                                                       00820023
+        DSN SYSTEM(DSN8)                                                00830023
+            BIND PLAN(P18AP08) -                                        00840039
+            MEMBER(PROG8) -                                             00850039
+            ACT(REPLACE) -                                              00860023
+            RETAIN -                                                    00870023
+            VALIDATE(BIND) -                                            00880023
+            ACQUIRE(USE) -                                              00890023
+            ISOLATION(CS)-                                              00900023
+            RELEASE(COMMIT) -                                           00910023
+            EXPLAIN(NO)                                                 00920023
+/*                                                                      00930023
+//SYSTSPRT DD  SYSOUT=*                                                 00940023
+//SYSPRINT DD  SYSOUT=*                                                 00950023
+//SYSUDUMP DD  SYSOUT=*                                                 00960023
+//SYSOUT   DD  SYSOUT=*                                                 00970023

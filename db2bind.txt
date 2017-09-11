@@ -1,0 +1,27 @@
+//DSRP042B JOB NOTIFY=&SYSUID,REGION=2048K,PRTY=15                      00001003
+//********************************************************************* 00010000
+//*      IKJEFT01 IS THE PROGRAM FOR BINDING                            00020000
+//********************************************************************* 00030000
+//BIND    EXEC PGM=IKJEFT01,DYNAMNBR=20,COND=(5,LT)                     00040000
+//STEPLIB  DD  DISP=SHR,DSN=DSN810.SDSNLOAD                             00050000
+//*DBRMLIB IS THE DD STATEMENT TELLS WHERE THE DBRM STORES              00060000
+//DBRMLIB  DD  DISP=SHR,DSN=DSRP042.RATH.DBRM                           00070002
+//*SYSTSIN IS THE DD STATEMENT IN WHICH WE HAVE TO GIVE BIND PARAMETERS 00080000
+//*IT WILL GIVE THE COMPLETE INFORMATION THAT HOW UR DATA BASE IS TO BE 00090000
+//*ACCESSED                                                             00100000
+//SYSTSIN  DD   *                                                       00110000
+        DSN SYSTEM(DSN8)                                                00120000
+            BIND PLAN(P42AP01) -                                        00130014
+            MEMBER(DB2CUR) -                                            00140023
+            ACT(REPLACE) -                                              00150000
+            RETAIN -                                                    00160000
+            VALIDATE(BIND) -                                            00170000
+            ACQUIRE(USE) -                                              00180000
+            ISOLATION(CS)-                                              00190000
+            RELEASE(COMMIT) -                                           00200000
+            EXPLAIN(NO)                                                 00210000
+/*                                                                      00220000
+//SYSTSPRT DD  SYSOUT=*                                                 00230000
+//SYSPRINT DD  SYSOUT=*                                                 00240000
+//SYSUDUMP DD  SYSOUT=*                                                 00250000
+//SYSOUT   DD  SYSOUT=*                                                 00260000

@@ -1,0 +1,95 @@
+1). jcl5
+
+//DSRP018T JOB ABCD,'CAP GEMINI',MSGLEVEL=(1,1),         
+//         MSGCLASS=X,CLASS=A,NOTIFY=DSRP018             
+//*                                                      
+//STEP010  EXEC PGM=IEFBR14                              
+//RACHEL1  DD DSN=DSRP018.TEST.FILE4,                    
+//         DISP=(NEW,CATLG,DELETE),                      
+//         SPACE=(TRK,(1,1),RLSE),                       
+//         DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS) 
+//*                                                      
+//STEP020  EXEC PGM=IEFBR14                              
+//RACHEL   DD DSN=DSRP018.TEST.FILE4,DISP=SHR            
+//*                                                      
+//STEP030  EXEC PGM=IEFBR14                              
+//RACHEL3  DD DSN=DSRP018.TEST.FILE4,DISP=OLD            
+//* 
+====================================================================================
+2). jcl6
+
+//DSRP018T JOB ABCD,'CAP GEMINI',MSGLEVEL=(1,1),          
+//         MSGCLASS=X,CLASS=A,NOTIFY=&SYSUID              
+//*                                                       
+//STEP010  EXEC PGM=IEFBR14                               
+//RACHEL1  DD DSN=DSRP018.TEST.FILE4,                     
+//         DISP=(MOD,DELETE,DELETE),                      
+//         SPACE=(TRK,(1,1),RLSE),                        
+//         DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)  
+//*                                                       
+//STEP020  EXEC PGM=IEFBR14                               
+//RACHEL1  DD DSN=DSRP018.TEST.FILE4,                     
+//         DISP=(NEW,CATLG,DELETE),                       
+//         SPACE=(TRK,(1,1),RLSE),                        
+//         DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)  
+                                                    
+====================================================================================
+3). jcl7
+//DSRP019T JOB ABCD,'CAPGEMINI',MSGLEVEL=(1,1),
+//         MSGCLASS=X,CLASS=A,NOTIFY=&SYSUID
+//*
+//STEP010  EXEC PGM=IEFBR14
+//FILE3    DD DSN=DSRP019.TEST.FILE3,
+//            DISP=(MOD,DELETE,DELETE),
+//            SPACE=(TRK,(1,1),RLSE),
+//            DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)
+//*
+//STEP020  EXEC PGM=IEBGENER
+//SYSUT1   DD DSN=DSRP019.TEST.FILE1,DISP=OLD
+//         DD DSN=DSRP019.TEST.FILE2,DISP=OLD
+//SYSUT2   DD DSN=DSRP019.TEST.FILE3,
+//            DISP=(NEW,CATLG,DELETE),
+//            SPACE=(TRK,(1,1),RLSE),
+//            DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+====================================================================================
+4). jcl8
+
+//DSRP018T JOB ABCD,'CAP GEMINI',MSGLEVEL=(1,1),          
+//         MSGCLASS=X,CLASS=A,NOTIFY=&SYSUID              
+//*                                                       
+//STEP010  EXEC PGM=IEFBR14                               
+//RACHEL1  DD DSN=DSRP018.TEST.FILE2,                     
+//         DISP=(MOD,DELETE,DELETE),                      
+//         SPACE=(TRK,(1,1),RLSE),                        
+//         DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)  
+//*                                                       
+//STEP020  EXEC PGM=IEBGENER                              
+//SYSUT1   DD DSN=DSRP018.TEST.FILE1,DISP=OLD             
+//SYSUT2   DD DSN=DSRP018.TEST.FILE2,                     
+//         DISP=(MOD,CATLG,DELETE),                       
+//         SPACE=(TRK,(1,1),RLSE),                        
+//         DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)  
+//SYSPRINT DD SYSOUT=*                                    
+//SYSIN    DD *   
+====================================================================================           
+5. jcl9
+
+ //DSRP018T JOB ABCD,'CAP GEMINI',MSGLEVEL=(1,1),          
+ //         RESTART=STEP020,                               
+ //         MSGCLASS=X,CLASS=A,NOTIFY=&SYSUID              
+ //*                                                       
+ //STEP010  EXEC PGM=IEFBR14                               
+ //RACHEL1  DD DSN=DSRP018.TEST.FILE2,                     
+ //         DISP=(MOD,DELETE,DELETE),                      
+ //         SPACE=(TRK,(1,1),RLSE),                        
+ //         DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)  
+ //*                                                       
+ //STEP020  EXEC PGM=IEBGENER                              
+ //SYSPRINT DD SYSOUT=*                                    
+ //SYSIN    DD *                                           
+ //SYSUT1   DD DSN=DSRP018.TEST.FILE1,DISP=OLD             
+ //SYSUT2   DD DSN=DSRP018.TEST.FILE2,DISP=OLD  
+====================================================================================
+          

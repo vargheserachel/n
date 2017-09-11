@@ -1,0 +1,182 @@
+1.(jcl12) copying contens of pds to ps
+
+
+//DSRP001C JOB ABCD,'CAP GEMINI',MSGLEVEL=(1,1),           
+//         MSGCLASS=X,CLASS=A,NOTIFY=&SYSUID               
+//*                                                        
+//STEP010  EXEC PGM=IEFBR14                                
+//FILE3    DD DSN=DSRP001.TEST.FILE3,                      
+//            DISP=(MOD,DELETE,DELETE),                    
+//            SPACE=(TRK,(1,1),RLSE),                      
+//            DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)
+//*                                                        
+//STEP020  EXEC PGM=IEBGENER                               
+//SYSUT1   DD *                                            
+INSTREAM - THIS IS RECORD 1                                
+INSTREAM - THIS IS RECORD 2                                
+INSTREAM - THIS IS RECORD 3                                
+INSTREAM - THIS IS RECORD 4                                
+/*                                                         
+//SYSUT2   DD DSN=DSRP001.TEST.FILE3,                      
+//            DISP=(NEW,CATLG,DELETE),                     
+//            SPACE=(TRK,(1,1),RLSE),                      
+//            DCB=(LRECL=80,BLKSIZE=8000,RECFM=FB,DSORG=PS) ###as d data is frm d jcl itself so its pds
+//SYSPRINT DD SYSOUT=*                                     
+//SYSIN    DD *              
+
+
+2 copy instream data to 3 members (jcl13)
+
+//DSRP001C JOB ABCD,'CAP GEMINI',MSGLEVEL=(1,1),            
+//         MSGCLASS=X,CLASS=A,NOTIFY=&SYSUID                
+//*                                                         
+//STEP010  EXEC PGM=IEFBR14                                 
+//FILE3    DD DSN=DSRP001.TEST.PDS3,                        
+//            DISP=(MOD,DELETE,DELETE),                     
+//            SPACE=(TRK,(1,1,1),RLSE),                     
+//            DCB=(LRECL=80,BLKSIZE=8000,RECFM=FB,DSORG=PO) 
+//*                                                         
+//STEP020  EXEC PGM=IEBGENER                                
+//SYSUT1   DD *                                             
+INSTREAM - THIS IS RECORD 1                                 
+INSTREAM - THIS IS RECORD 2                                 
+INSTREAM - THIS IS RECORD 3                                 
+INSTREAM - THIS IS RECORD 4                                 
+/*                                                                                                    
+//SYSUT2   DD DSN=DSRP001.TEST.PDS3,                       
+//            DISP=(NEW,CATLG,DELETE),                     
+//            SPACE=(TRK,(1,1,1),RLSE),                    
+//            DCB=(LRECL=80,BLKSIZE=8000,RECFM=FB,DSORG=PO)
+//SYSPRINT DD SYSOUT=*                                     
+//SYSIN    DD *                                            
+   GENERATE MAXNAME=3                                      
+   MEMBER NAME=(ASV1,ASV2,ASV3)                            
+/*
+
+
+3.
+ copy instream data to 1 member
+
+//DSRP001C JOB ABCD,'CAP GEMINI',MSGLEVEL=(1,1),            
+//         MSGCLASS=X,CLASS=A,NOTIFY=&SYSUID                
+//*                                                         
+//STEP010  EXEC PGM=IEFBR14                                 
+//FILE3    DD DSN=DSRP001.TEST.PDS3,                        
+//            DISP=(MOD,DELETE,DELETE),                     
+//            SPACE=(TRK,(1,1,1),RLSE),                     
+//            DCB=(LRECL=80,BLKSIZE=8000,RECFM=FB,DSORG=PO) 
+//*                                                         
+//STEP020  EXEC PGM=IEBGENER                                
+//SYSUT1   DD *                                             
+INSTREAM - THIS IS RECORD 1                                 
+INSTREAM - THIS IS RECORD 2                                 
+INSTREAM - THIS IS RECORD 3                                 
+INSTREAM - THIS IS RECORD 4                                 
+/*                                                                                                    
+//SYSUT2   DD DSN=DSRP001.TEST.PDS3(mem1),                       
+//            DISP=(NEW,CATLG,DELETE),                     
+//            SPACE=(TRK,(1,1,1),RLSE),                    
+//            DCB=(LRECL=80,BLKSIZE=8000,RECFM=FB,DSORG=PO)
+//SYSPRINT DD SYSOUT=*                                     
+//SYSIN    DD *      
+
+
+
+
+4.
+//DSRP001C JOB ABCD,'CAP GEMINI',MSGLEVEL=(1,1),           
+//         MSGCLASS=X,CLASS=A,NOTIFY=&SYSUID               
+//*
+//STEP010  EXEC PGM=IEFBR14                                
+//FILE3    DD DSN=DSRP001.TEST.FILE3,                      
+//            DISP=(MOD,DELETE,DELETE),                    
+//            SPACE=(TRK,(1,1),RLSE),                      
+//            DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)
+//*                                                        
+//STEP020  EXEC PGM=IEBGENER                               
+//SYSUT1   DD DSN=DSRP001.TEST.FILE1,DISP=OLD              
+//SYSUT2   DD DSN=DSRP001.TEST.FILE3,                      
+//            DISP=(NEW,CATLG,DELETE),                     
+//            SPACE=(TRK,(1,1),RLSE),                      
+//            DCB=(LRECL=50,BLKSIZE=5000,RECFM=FB,DSORG=PS)
+//SYSPRINT DD SYSOUT=*                                     
+//SYSIN    DD *                                            
+   GENERATE MAXFLDS=4      
+   RECORD FIELD=(5,16,,1),   ###(if length=4 den dots vl appear)
+          FIELD=(5,11,,6), 
+          FIELD=(5,6,,11), 
+          FIELD=(5,1,,16)  
+/*                         
+//                         
+//* INPUT DATA             
+----+----1----+----2----+--
+AAAA BBBB CCCC DDDD        
+//* OUTPUT DATA            
+----+----1----+----2----+--
+DDDD CCCC BBBB AAAA
+
+
+
+5.
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+1.programs(cobrun)
+
+ 000001 //DSRP018R JOB LA2719,'SVC',NOTIFY=DSRP018,      
+ 000002 //        MSGCLASS=X,TIME=(0,1)                  
+ 000003 //COBRUN   EXEC PGM=THIRDPGM                     
+ 000004 //STEPLIB  DD   DSN=DSRP018.TEST.LOADLIB,DISP=SHR
+ 000005 //SYSPRINT DD   SYSOUT=*                         
+ 000006 //SYSOUT   DD   SYSOUT=*                         
+ 000007 //SYSIN    DD   *                                
+ 000008 RACHEL                                           
+ 000009 VARGHESE                                         
+ 000010 /*                                               
+
+
+
+
+
+
+
+ ICH70001I DSRP018  LAST ACCESS AT 16:04:01 ON WEDNESDAY, JULY 5, 2017   
+ ICH70002I YOUR PASSWORD WILL EXPIRE IN  13 DAYS.                        
+ IKJ56455I DSRP018 LOGON IN PROGRESS AT 08:49:14 ON JULY 8, 2017         
+ IKJ56461I BROADCAST DATA SET NOT USABLE, INSTALLATION MUST REFORMAT     
+ ***                                                                     
+                                                                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
